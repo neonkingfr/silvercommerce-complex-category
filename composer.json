@@ -1,0 +1,36 @@
+{
+  "name": "silvercommerce/complex-category",
+  "description": "Categories that allow more complex frontent functionality (such as sorting and selection of page length)",
+    "type": "silverstripe-vendormodule",
+    "homepage": "http://github.com/silvercommerce/complex-category",
+    "keywords": [
+        "silverstripe",
+        "commerce",
+        "ecommerce",
+        "product",
+        "category",
+        "sort",
+        "pagination"
+    ],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Morven Lewis-Everley",
+            "email": "morven@i-lateral.com"
+        }
+    ],
+    "support": {
+        "issues": "http://github.com/silvercommerce/complex-category/issues"
+    },
+    "require": {
+        "silverstripe/framework": "~4.0",
+        "silvercommerce/catalogue-admin": "1.*@dev",
+        "silvercommerce/catalogue-frontend": "1.*@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "SilverCommerce\\ComplexCategory\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
