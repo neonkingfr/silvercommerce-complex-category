@@ -41,7 +41,7 @@ class ComplexCategory extends Category
         $query = $this->getQuery();
         $return = "";
 
-        if ($query[$type]) {
+        if (isset($query[$type])) {
             $i = 0;
             foreach ($options as $key => $value) {
                 if ($query[$type] == $i
@@ -70,20 +70,11 @@ class ComplexCategory extends Category
             ComplexCategoryController::class,
             "sort_options"
         );
-        $limit_options = Config::inst()->get(
-            ComplexCategoryController::class,
-            "limit_options"
-        );
 
         $sort = $this->getCurrentOption($sort_options, "sort");
-        $limit = $this->getCurrentOption($limit_options, "limit");
 
         if (!empty($sort)) {
             $products = $products->sort($sort);
-        }
-
-        if (!empty($limit)) {
-            $products = $products->limit($limit);
         }
 
         return $products;

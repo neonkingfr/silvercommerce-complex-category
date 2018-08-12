@@ -5,8 +5,9 @@ namespace SilverCommerce\ComplexCategory;
 use CategoryController;
 use SilverStripe\Forms\Form;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FormAction;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Forms\DropdownField;
 
 class ComplexCategoryController extends CategoryController
 {
@@ -33,11 +34,12 @@ class ComplexCategoryController extends CategoryController
      * 
      * @var array
      */
-    private static $limit_options = [
-        self::DEFAULT_LIMIT,
-        30,
-        60,
-        90
+    private static $show_options = [
+        '3' => '3',
+        self::DEFAULT_LIMIT => self::DEFAULT_LIMIT,
+        '30' => '30',
+        '60' => '60',
+        '90' => '90'
     ];
 
     /**
@@ -58,7 +60,7 @@ class ComplexCategoryController extends CategoryController
     public function SortLimitForm()
     {
         $sort_options = $this->config()->sort_options;
-        $limit_options = $this->config()->limit_options;
+        $show_options = $this->config()->show_options;
 
         // Get the current query
         $query = $this->getQuery();
@@ -74,7 +76,7 @@ class ComplexCategoryController extends CategoryController
         }
 
         $i = 0;
-        foreach ($limit_options as $item) {
+        foreach ($show_options as $item) {
             $limit[$i] = $item;
             $i++;
         }
@@ -89,8 +91,8 @@ class ComplexCategoryController extends CategoryController
                     $sort
                 ),
                 $limit_field = DropdownField::create(
-                    "s[limit]",
-                    _t(self::class . '.Limit', 'Limit'),
+                    "s[show]",
+                    _t(self::class . '.Show', 'Show'),
                     $limit
                 ),
                 FormAction::create(
@@ -113,12 +115,34 @@ class ComplexCategoryController extends CategoryController
             $sort_field->setValue($query["sort"]);
         }
 
-        if (!empty($query["limit"])) {
-            $limit_field->setValue($query["limit"]);
+        if (!empty($query["show"])) {
+            $limit_field->setValue($query["show"]);
         }
 
         $this->extend("updateSortLimitForm", $form);
 
         return $form;
+    }
+
+    /**
+     * Get a paginated list of all products at this level and below
+     * 
+     * This is expanded to support the length dropdown
+     *
+     * @return PaginatedList
+     */
+    public function PaginatedAllProducts($limit = 10)
+    {
+        $show_options = Config::inst()->get(self::class, "show_options");
+
+        $new_limit = $this->getCurrentOption($show_options, "show");
+
+        if (!empty($new_limit)) {
+            $limit = $new_limit; 
+        } else {
+            $limit = self::DEFAULT_LIMIT;
+        }
+
+        return parent::PaginatedAllProducts($limit);
     }
 }
