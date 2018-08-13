@@ -35,7 +35,6 @@ class ComplexCategoryController extends CategoryController
      * @var array
      */
     private static $show_options = [
-        '3' => '3',
         self::DEFAULT_LIMIT => self::DEFAULT_LIMIT,
         '30' => '30',
         '60' => '60',
