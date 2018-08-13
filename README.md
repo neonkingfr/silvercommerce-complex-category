@@ -21,4 +21,40 @@ that will add "sort" and "show" dropdowns and automatically update the product l
 This module requires you to add a `$SortLimitForm` variable to your category templates.
 
 You can add this to all category templates, or specify a specific template for your
-complex category. 
+complex category.
+
+## Customising sort and page length options
+
+You can add custom sort and page length options via SilverStripe config. The config options
+are as follows.
+
+### ComplexCategoryController.sort_options
+
+An array of sort options, where the key is the sort (which is loaded into the `DataList::sort()`
+call) and the value is what is loaded in the dropdown.
+
+If you wanted to add a "Date Added" field to the sort, you could add the following to your `config.yml`
+
+```yml
+ComplexCategoryController:
+  sort_options:
+    "Created ASC": "Added (most recent first)"
+    "Created DESC": "Added (oldest first)"
+```
+
+### ComplexCategoryController.show_options
+
+An array of page length options, where the key is the length (used by `PaginatedList::setPageLength()`)and the value is what is loaded in the dropdown.
+
+If you wanted to add 120 and 150 to the field, you could add the following to your `config.yml`
+
+```yml
+ComplexCategoryController:
+  show_options:
+    "120": "120"
+    "150": "150"
+```
+
+**NOTE:** To attempt to help protect against attacks such as SQL injection, none of the above pass
+queries are passed via the URL, instead a index of the selected option is passed and then the
+controller selects the appropriate setting.
