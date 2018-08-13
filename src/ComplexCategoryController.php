@@ -124,6 +124,39 @@ class ComplexCategoryController extends CategoryController
     }
 
     /**
+     * Get the pagination limit selected (either via the URL or by default)
+     * 
+     * @return int
+     */
+    protected function getPaginationLimit()
+    {
+        $show_options = Config::inst()->get(self::class, "show_options");
+        $new_limit = $this->getCurrentOption($show_options, "show");
+
+        if (!empty($new_limit)) {
+            $limit = $new_limit;
+        } else {
+            $limit = self::DEFAULT_LIMIT;
+        }
+
+        return (int)$limit;
+    }
+
+    /**
+     * Get a paginated list of all products at this level and below
+     * 
+     * This is expanded to support the length dropdown
+     *
+     * @return PaginatedList
+     */
+    public function PaginatedProducts($limit = 10)
+    {
+        $limit = $this->getPaginationLimit();
+
+        return parent::PaginatedAllProducts($limit);
+    }
+
+    /**
      * Get a paginated list of all products at this level and below
      * 
      * This is expanded to support the length dropdown
@@ -132,15 +165,7 @@ class ComplexCategoryController extends CategoryController
      */
     public function PaginatedAllProducts($limit = 10)
     {
-        $show_options = Config::inst()->get(self::class, "show_options");
-
-        $new_limit = $this->getCurrentOption($show_options, "show");
-
-        if (!empty($new_limit)) {
-            $limit = $new_limit; 
-        } else {
-            $limit = self::DEFAULT_LIMIT;
-        }
+        $limit = $this->getPaginationLimit();
 
         return parent::PaginatedAllProducts($limit);
     }

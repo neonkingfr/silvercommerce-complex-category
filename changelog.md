@@ -10,3 +10,4 @@ Initial stable release
 
 * Remove uneeded first limit
 * Update docs
+* Add pagination limit to `PaginatedProducts`
