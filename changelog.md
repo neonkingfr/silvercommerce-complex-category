@@ -11,3 +11,7 @@ Initial stable release
 * Remove uneeded first limit
 * Update docs
 * Add pagination limit to `PaginatedProducts`
+
+## 1.1.0
+
+* Change default constants to allow overwriting by config

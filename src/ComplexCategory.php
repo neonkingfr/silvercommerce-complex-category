@@ -40,12 +40,13 @@ class ComplexCategory extends Category
     {
         $query = $this->getQuery();
         $return = "";
+        $default_title = ComplexCategoryController::config()->get('default_title');
 
         if (isset($query[$type])) {
             $i = 0;
             foreach ($options as $key => $value) {
                 if ($query[$type] == $i
-                && $key != ComplexCategoryController::DEFAULT_SORT) {
+                && $key != $default_title) {
                     $return = $key;
                     break;
                 }

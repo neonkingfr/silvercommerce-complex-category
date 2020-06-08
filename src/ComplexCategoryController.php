@@ -11,9 +11,9 @@ use SilverStripe\Forms\DropdownField;
 
 class ComplexCategoryController extends CategoryController
 {
-    const DEFAULT_SORT = "Default";
+    private static  $default_title = "Default";
 
-    const DEFAULT_LIMIT = 15;
+    private static  $default_limit = 15;
 
     /**
      * Specify sort options and their titles
@@ -22,7 +22,7 @@ class ComplexCategoryController extends CategoryController
      * @var array
      */
     private static $sort_options = [
-        self::DEFAULT_SORT => self::DEFAULT_SORT,
+        'Default' => 'Default',
         'Title ASC' => 'Name (A-Z)',
         'Title DESC' => 'Name (Z-A)',
         'BasePrice ASC' => 'Price (Low - High)',
@@ -35,7 +35,7 @@ class ComplexCategoryController extends CategoryController
      * @var array
      */
     private static $show_options = [
-        self::DEFAULT_LIMIT => self::DEFAULT_LIMIT,
+        '15' => '15',
         '30' => '30',
         '60' => '60',
         '90' => '90'
@@ -131,12 +131,13 @@ class ComplexCategoryController extends CategoryController
     protected function getPaginationLimit()
     {
         $show_options = Config::inst()->get(self::class, "show_options");
+        $default_limit = Config::inst()->get(self::class, "default_limit");
         $new_limit = $this->getCurrentOption($show_options, "show");
 
         if (!empty($new_limit)) {
             $limit = $new_limit;
         } else {
-            $limit = self::DEFAULT_LIMIT;
+            $limit = $default_limit;
         }
 
         return (int)$limit;
