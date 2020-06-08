@@ -15,3 +15,4 @@ Initial stable release
 ## 1.1.0
 
 * Change default constants to allow overwriting by config
+* Increase default limit options

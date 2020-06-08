@@ -13,7 +13,7 @@ class ComplexCategoryController extends CategoryController
 {
     private static  $default_title = "Default";
 
-    private static  $default_limit = 15;
+    private static  $default_limit = 24;
 
     /**
      * Specify sort options and their titles
@@ -35,10 +35,10 @@ class ComplexCategoryController extends CategoryController
      * @var array
      */
     private static $show_options = [
-        '15' => '15',
-        '30' => '30',
-        '60' => '60',
-        '90' => '90'
+        '24' => '24',
+        '48' => '48',
+        '72' => '72',
+        '96' => '96'
     ];
 
     /**
