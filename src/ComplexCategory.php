@@ -40,7 +40,7 @@ class ComplexCategory extends Category
     {
         $query = $this->getQuery();
         $return = "";
-        $default_title = ComplexCategoryController::config()->get('default_title');
+        $default_title = ComplexCategoryController::getDefaultSortTitle();
 
         if (isset($query[$type])) {
             $i = 0;

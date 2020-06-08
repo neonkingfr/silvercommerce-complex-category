@@ -11,9 +11,7 @@ use SilverStripe\Forms\DropdownField;
 
 class ComplexCategoryController extends CategoryController
 {
-    private static  $default_title = "Default";
-
-    private static  $default_limit = 24;
+    const FALLBACK_LIMIT = 24;
 
     /**
      * Specify sort options and their titles
@@ -49,6 +47,41 @@ class ComplexCategoryController extends CategoryController
     public function getTranslatedSort($option)
     {
         return _t(self::class . "." . $option, $option);
+    }
+
+    /**
+     * Try to determine the default sort title based on the set sort options
+     *
+     * @return string
+     */
+    public static function getDefaultSortTitle()
+    {
+        $options = self::config()->get('sort_options');
+
+        if (count($options) > 0) {
+            // slice of the first option (as first item will not be an int)
+            return reset($options);
+        }
+
+        return "";
+    }
+
+    /**
+     * Try to determine the default limit amount based on the set limit options.
+     * If none is found, fallback to a hard coded default.
+     *
+     * @return int
+     */
+    public static function getDefaultLimit()
+    {
+        $options = self::config()->get('show_options');
+
+        if (count($options) > 0) {
+            // slice of the first option (as 0 key might not exist)
+            return reset($options);
+        }
+
+        return self::FALLBACK_LIMIT;
     }
 
     /**
@@ -130,8 +163,8 @@ class ComplexCategoryController extends CategoryController
      */
     protected function getPaginationLimit()
     {
+        $default_limit = self::getDefaultLimit();
         $show_options = Config::inst()->get(self::class, "show_options");
-        $default_limit = Config::inst()->get(self::class, "default_limit");
         $new_limit = $this->getCurrentOption($show_options, "show");
 
         if (!empty($new_limit)) {
