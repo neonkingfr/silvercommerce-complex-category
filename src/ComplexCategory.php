@@ -25,6 +25,8 @@ class ComplexCategory extends Category
             $query = [];
         }
 
+        $this->extend('updateQuery', $query);
+
         return $query;
     }
 
@@ -54,6 +56,8 @@ class ComplexCategory extends Category
             }
         }
 
+        $this->extend('updateCurrentOption', $return);
+
         return $return;
     }
 
@@ -77,6 +81,8 @@ class ComplexCategory extends Category
         if (!empty($sort)) {
             $products = $products->sort($sort);
         }
+
+        $this->extend('updateAllProducts', $products);
 
         return $products;
     }

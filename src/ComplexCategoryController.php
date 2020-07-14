@@ -173,6 +173,8 @@ class ComplexCategoryController extends CategoryController
             $limit = $default_limit;
         }
 
+        $this->extend("updatePaginationLimit", $limit);
+
         return (int)$limit;
     }
 
