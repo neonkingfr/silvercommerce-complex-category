@@ -17,6 +17,10 @@ Initial stable release
 * Change default constants to allow overwriting by config
 * Increase default limit options
 
-# 1.1.1
+## 1.1.1
 
 * Add additional extension hooks
+
+## 1.1.2
+
+* Add additional data to extension hooks

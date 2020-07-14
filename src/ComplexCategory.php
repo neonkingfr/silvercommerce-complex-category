@@ -71,7 +71,7 @@ class ComplexCategory extends Category
             }
         }
 
-        $this->extend('updateCurrentOption', $return);
+        $this->extend('updateCurrentOption', $return, $options, $type);
 
         return $return;
     }
@@ -97,7 +97,11 @@ class ComplexCategory extends Category
             $products = $products->sort($sort);
         }
 
-        $this->extend('updateAllProducts', $products);
+        $extensions = $this->extend('updateAllProducts', $products);
+
+        if (count($extensions) > 0) {
+            return $extensions[0];
+        }
 
         return $products;
     }
