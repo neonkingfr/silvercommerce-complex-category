@@ -10,6 +10,21 @@ class ComplexCategory extends Category
 {
     private static $table_name = 'ComplexCategory';
 
+    /**
+     * Human-readable singular name.
+     * @var string
+     * @config
+     */
+    private static $singular_name = 'Complex Category';
+
+    /**
+     * Human-readable plural name
+     * @var string
+     * @config
+     */
+    private static $plural_name = 'Complex Categories';
+
+
     private static $description = "A category that allows sorting and limiting of products";
 
     /**
