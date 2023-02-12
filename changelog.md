@@ -28,3 +28,7 @@ Initial stable release
 ## 1.1.3
 
 * Remove uneeded `banner` include
+
+## 1.2.0
+
+* Change categories template inline with top level theme
