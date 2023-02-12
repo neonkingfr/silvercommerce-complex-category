@@ -1,9 +1,7 @@
-<% include Banner %>
-
 <% if $Menu(2) || $SideBarView.Widgets || $AllTags.Exists %>
 	<% include SideBar %>
 <% end_if %>
-	
+
 <div class="col-sm commerce-category" role="main">
 	<article class="content">
 		$Content

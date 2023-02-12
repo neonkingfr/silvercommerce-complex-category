@@ -24,3 +24,7 @@ Initial stable release
 ## 1.1.2
 
 * Add additional data to extension hooks
+
+## 1.1.3
+
+* Remove uneeded `banner` include
